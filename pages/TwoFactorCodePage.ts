@@ -12,10 +12,10 @@ export class TwoFactorCodePage {
             algorithm: 'SHA1',
         }).generate();
 
-        await this.page.getByPlaceholder('000000').waitFor();
         await this.page.getByPlaceholder('000000').fill(otp);
     }
     async submit() {
         await this.page.getByRole('button', { name: 'Verificar Código' }).click();
+        await this.page.waitForURL(/dashboard/);
     }
 }
