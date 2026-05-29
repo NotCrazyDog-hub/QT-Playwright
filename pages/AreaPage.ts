@@ -1,6 +1,6 @@
 import { Page } from '@playwright/test'
 
-export class FieldPage {
+export class AreaPage {
     constructor(private page: Page) {}
 
     async goto() {
@@ -9,11 +9,10 @@ export class FieldPage {
         await this.page.getByRole('link', { name: 'Áreas' }).click();
         await this.page.waitForURL(/areas/);
     }
-
     // CRIAR UMA NOVA ÁREA
-    async createField(fieldName: string) {
+    async createArea(areaName: string) {
         await this.page.getByRole('button', { name: 'Adicionar área' }).click();
-        await this.page.getByRole('textbox', { name: 'Nome da Área:' }).fill(fieldName);
+        await this.page.getByRole('textbox', { name: 'Nome da Área:' }).fill(areaName);
     }
     async submit() {
         await this.page.getByRole('button', { name: 'Salvar' }).click();
