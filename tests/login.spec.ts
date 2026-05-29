@@ -12,4 +12,6 @@ test('Login with TOTP automation', async ({ page }) => {
 
   await twoFactorCodePage.fillCode(process.env.SECRET_2FA!);
   await twoFactorCodePage.submit();
+
+  await page.context().storageState({ path: '.auth/session.json' });
 });
