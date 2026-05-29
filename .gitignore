@@ -10,4 +10,5 @@ node_modules/
 # Environment files
 .env
 
+# Authentication files
 .auth/
