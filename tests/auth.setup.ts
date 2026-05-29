@@ -1,8 +1,8 @@
-import { test } from '@playwright/test';
+import { test as setup } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { TwoFactorCodePage } from '../pages/TwoFactorCodePage';
 
-test('Login with TOTP automation', async ({ page }) => {
+setup('Authenticate user', async ({ page }) => {
   const loginPage = new LoginPage(page);
   const twoFactorCodePage = new TwoFactorCodePage(page);
 
@@ -12,4 +12,6 @@ test('Login with TOTP automation', async ({ page }) => {
 
   await twoFactorCodePage.fillCode(process.env.SECRET_2FA!);
   await twoFactorCodePage.submit();
+
+  await page.context().storageState({ path: '.auth/session.json' });
 });
