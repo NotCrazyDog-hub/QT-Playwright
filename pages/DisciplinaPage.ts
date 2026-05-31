@@ -11,6 +11,11 @@ export class DisciplinaPage {
         await this.page.getByRole('button', { name: 'Adicionar disciplina' }).click();
     }
 
+    async searchDiscipline(nome: string) {
+    await this.page.getByPlaceholder('Pesquisar disciplina...').fill(nome);
+    await this.page.waitForTimeout(500); // aguarda o debounce da pesquisa
+}
+
     async createDiscipline(nome: string, area: string) {
         await this.page.getByRole('button', { name: 'Adicionar disciplina' }).click();
         await this.page.getByRole('textbox', { name: 'Nome da disciplina: *' }).fill(nome);
@@ -18,22 +23,25 @@ export class DisciplinaPage {
         await this.page.getByRole('option', { name: area }).click();
     }
 
+    async editDiscipline(nomeAtual: string, nomeNovo: string) {
+        await this.searchDiscipline(nomeAtual);
+        await this.page.getByRole('row').filter({ hasText: nomeAtual }).waitFor();
+        const linha = this.page.getByRole('row').filter({ hasText: nomeAtual });
+        await linha.locator('button', { hasText: 'Editar' }).click();
+        const campo = this.page.getByRole('textbox', { name: 'Nome da disciplina: *' });
+        await campo.clear();
+        await campo.fill(nomeNovo);
+    }
+
+    async deleteDiscipline(nome: string) {
+        await this.searchDiscipline(nome);
+        await this.page.getByRole('row').filter({ hasText: nome }).waitFor();
+        const linha = this.page.getByRole('row').filter({ hasText: nome });
+        await linha.locator('button', { hasText: 'Excluir' }).click();
+        await this.page.getByRole('button', { name: 'Excluir' }).click();
+    }
+
     async submit() {
         await this.page.getByRole('button', { name: 'Salvar' }).click();
     }
-
-//   // Abre edição pelo índice (0 = primeira disciplina da lista)
-//     async abrirEdicao(indice: number) {
-//         await this.page.getByRole('button', { name: 'Editar' }).nth(indice).click();
-//     }
-
-//   // Clica em excluir na listagem
-//     async clicarExcluir(indice: number) {
-//         await this.page.getByRole('button', { name: 'Excluir' }).nth(indice).click();
-//     }
-
-//   // Confirma a exclusão no modal
-//     async confirmarExclusao() {
-//         await this.page.getByRole('button', { name: 'Excluir' }).click();
-//     }
 }
