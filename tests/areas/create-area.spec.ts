@@ -6,6 +6,7 @@ test('Happy Path: Create a new area', async ({ page }) => {
     await areaPage.goto();
     await areaPage.createArea('Área 51 brasileira ' + Date.now());
     await areaPage.submit();
+    await expect(page.getByText('Área salva com sucesso')).toBeVisible();
 });
 
 test('Sad Path: Create a new area with link', async ({ page }) => {
