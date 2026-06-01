@@ -9,10 +9,12 @@ export class AreaPage {
         await this.page.getByRole('link', { name: 'Áreas' }).click();
         await this.page.waitForURL(/areas/);
     }
+
     async searchArea(areaName: string) {
         await this.page.getByPlaceholder('Pesquisar área...').fill(areaName);
         await this.page.waitForTimeout(500);
     }
+
     // CRIAR UMA NOVA ÁREA
     async createArea(areaName: string) {
         await this.page.getByRole('button', { name: 'Adicionar área' }).click();
@@ -21,6 +23,7 @@ export class AreaPage {
     async submit() {
         await this.page.getByRole('button', { name: 'Salvar' }).click();
     }
+    
     // EDITAR ÁREA
     async editArea(oldName: string, newName: string) {
         await this.searchArea(oldName);
