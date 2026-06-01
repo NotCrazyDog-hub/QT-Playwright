@@ -20,10 +20,11 @@ export class AreaPage {
         await this.page.getByRole('button', { name: 'Adicionar área' }).click();
         await this.page.getByRole('textbox', { name: 'Nome da Área:' }).fill(areaName);
     }
+    
     async submit() {
         await this.page.getByRole('button', { name: 'Salvar' }).click();
     }
-    
+
     // EDITAR ÁREA
     async editArea(oldName: string, newName: string) {
         await this.searchArea(oldName);
