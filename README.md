@@ -4,5 +4,5 @@ Projeto de testes automatizados end-to-end do sistema [Avaliei](https://app.aval
  
 **Disciplina:** Qualidade e Teste de Software  
 **Dupla:**
-- Pedro Henrique de Oliveira Costa — Nº 37
 - Maria Aparecida Carvalho de Oliveira — Nº 28
+- Pedro Henrique de Oliveira Costa — Nº 37
