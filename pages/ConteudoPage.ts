@@ -18,6 +18,8 @@ export class ConteudoPage {
     async createConteudo(conteudoName: string) {
         await this.page.getByRole('button', { name: 'Adicionar conteúdo' }).click();
         await this.page.getByRole('textbox', { name: 'Nome do Conteúdo:' }).fill(conteudoName);
-        // Interações a serem adicionadas
+        await this.page.getByRole('button', { name: 'Disciplina' }).click();
+        await this.page.getByRole('option', { name: 'Biologia' }).click();
+        
     }
 }
