@@ -14,6 +14,7 @@ export class TurmaPage {
         await this.page.getByRole('button', {name: 'Salvar'}).click();
     }
 
+    // CRIAR UMA NOVA TURMA
     async createTurma(courseName: string, year: string, series: string, shift: string) {
         await this.page.getByRole('button', {name: 'Adicionar nova turma'}).click();
 
