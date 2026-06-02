@@ -41,8 +41,8 @@ export class TurmaPage {
     async editTurma(query: string,oldYear: string, newYear: string) {
         await this.searchTurma(query);
 
-        await this.page.getByRole('row').filter({ hasText: query }).waitFor();
         const row = this.page.getByRole('row').filter({ hasText: query });
+        await row.waitFor({ state: 'visible' });
 
         await row.getByRole('button', { name: 'Opções' }).click();
         await this.page.getByRole('menuitem', { name: 'Editar' }).click();
