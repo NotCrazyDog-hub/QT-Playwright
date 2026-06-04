@@ -33,14 +33,6 @@ export class DisciplinaPage {
         await campo.fill(nomeNovo);
     }
 
-    async deleteDiscipline(nome: string) {
-        await this.searchDiscipline(nome);
-        await this.page.getByRole('row').filter({ hasText: nome }).waitFor();
-        const linha = this.page.getByRole('row').filter({ hasText: nome });
-        await linha.locator('button', { hasText: 'Excluir' }).click();
-        await this.page.getByRole('button', { name: 'Excluir' }).click();
-    }
-
     async submit() {
         await this.page.getByRole('button', { name: 'Salvar' }).click();
     }
