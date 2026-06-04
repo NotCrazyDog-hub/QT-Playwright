@@ -14,6 +14,11 @@ export class ConteudoPage {
         await this.page.getByRole('button', { name: 'Salvar' }).click();
     }
 
+    async searchConteudo(nome: string) {
+        await this.page.getByPlaceholder('Pesquisar conteúdo...').fill(nome);
+        await this.page.waitForTimeout(500); // aguarda o debounce da pesquisa
+    }
+
     // CRIAR UM NOVO CONTEÚDO
     async createConteudo(conteudoName: string) {
         await this.page.getByRole('button', { name: 'Adicionar conteúdo' }).click();
@@ -21,5 +26,15 @@ export class ConteudoPage {
         await this.page.getByRole('button', { name: 'Disciplina' }).click();
         await this.page.getByRole('option', { name: 'Biologia' }).click();
         
+    }
+
+    async editConteudo(nomeAtual: string, nomeNovo: string) {
+        await this.searchConteudo(nomeAtual);
+        await this.page.getByRole('row').filter({ hasText: nomeAtual }).waitFor();
+        const linha = this.page.getByRole('row').filter({ hasText: nomeAtual });
+        await linha.locator('button', { hasText: 'Editar' }).click();
+        const campo = this.page.getByRole('textbox', { name: 'Nome do conteúdo: *' });
+        await campo.clear();
+        await campo.fill(nomeNovo);
     }
 }
