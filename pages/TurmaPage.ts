@@ -25,28 +25,21 @@ export class TurmaPage {
 
         await this.page.getByRole('button', { name: 'Curso' }).click();
         await this.page.getByRole('option', { name: courseName }).click();
-        
         await this.page.getByRole('textbox', { name: /Ano/ }).fill(year);
-
         await this.page.getByRole('combobox', { name: /Série/ }).click();
         await this.page.getByLabel(series).getByText(series).click();
-
         await this.page.getByRole('combobox', { name: /Turno/ }).click();
         await this.page.getByLabel(shift).getByText(shift).click();
-
         await this.page.getByRole('textbox', { name: /Descrição/ }).fill(description);
     }
 
     // EDITAR UMA TURMA
     async editTurma(query: string,oldYear: string, newYear: string) {
         await this.searchTurma(query);
-
         const row = this.page.getByRole('row').filter({ hasText: query });
         await row.waitFor({ state: 'visible' });
-
         await row.getByRole('button', { name: 'Opções' }).click();
         await this.page.getByRole('menuitem', { name: 'Editar' }).click();
-
         const field = this.page.getByRole('textbox', { name: /Ano/ });
         await field.clear();
         await field.fill(newYear);
