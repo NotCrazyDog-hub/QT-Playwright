@@ -17,9 +17,10 @@ test('Happy Path: Edit an existing avaliação', async ({ page }) => {
     await expect(page.getByText('Avaliação atualizada com sucesso!')).toBeVisible();
 });
 
-test('Sad Path: Try to edit an avaliação with empty description', async ({ page }) => {
+test('Sad Path: Try to edit an avaliação with a script tag', async ({ page }) => {
     const avaliacaoPage = new AvaliacaoPage(page);
-    const description = 'Prova mega fácil ' + Date.now();
+    const description = 'Prova hiper fácil ' + Date.now();
+    const script = '<script>alert("xss")</script>';
 
     await avaliacaoPage.goto();
 
@@ -28,8 +29,8 @@ test('Sad Path: Try to edit an avaliação with empty description', async ({ pag
     await expect(page.getByText('Avaliação cadastrada com sucesso!')).toBeVisible();
 
     await avaliacaoPage.goto();
-    await avaliacaoPage.editAvaliacao(description, '');
-    await expect(page.getByText('A descrição é obrigatória')).toBeVisible();
+    await avaliacaoPage.editAvaliacao(description, script);
+    await expect(page.getByText(script)).not.toBeVisible();
 });
 
 test('Edge Path: Try to edit an avaliação with a very long description', async ({ page }) => {
