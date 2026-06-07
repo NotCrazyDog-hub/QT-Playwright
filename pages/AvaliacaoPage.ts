@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test'
+import { Page, expect } from '@playwright/test'
 
 export class AvaliacaoPage {
     constructor(private page: Page) {}
@@ -10,17 +10,17 @@ export class AvaliacaoPage {
     }
 
     async submit() {
-        await this.page.getByRole('button', {name: 'Salvar avaliação'}).click();
+        await this.page.getByRole('button', { name: 'Salvar avaliação' }).click();
     }
 
-    // TESTE
     async searchAvaliacao(query: string) {
         await this.page.getByPlaceholder('Pesquisar avaliações...').fill(query);
         await this.page.getByRole('button', { name: 'Aplicar' }).click();
+        await this.page.waitForLoadState('networkidle');
     }
 
     async createAvaliacao(avaliacaoDescription: string, professorName: string, disciplinaName: string) {
-        await this.page.getByRole('button', {name: 'Criar Avaliação'}).click();
+        await this.page.getByRole('button', { name: 'Criar Avaliação' }).click();
         await this.page.getByRole('textbox', { name: 'Descrição da avaliação: *' }).fill(avaliacaoDescription);
         await this.page.getByRole('combobox', { name: 'Turmas' }).click();
         await this.page.getByRole('option').first().click();
@@ -31,13 +31,14 @@ export class AvaliacaoPage {
         await this.page.getByRole('spinbutton', { name: 'Quantidade de questões para' }).fill('10');
     }
 
-    // TESTE
     async editAvaliacao(query: string, newDescription: string) {
         await this.searchAvaliacao(query);
         await this.page.locator('h3').filter({ hasText: query }).waitFor({ state: 'visible' });
+        await expect(this.page.locator('h3').filter({ hasText: query })).toHaveCount(1);
         const card = this.page.locator('h3').filter({ hasText: query }).locator('xpath=ancestor::*[@data-slot="card-content"]');
         await card.getByRole('button', { name: 'Mais Ações' }).click();
         await this.page.getByRole('menuitem', { name: 'Editar' }).click();
+        await this.page.getByRole('textbox', { name: 'Descrição da avaliação: *' }).clear();
         await this.page.getByRole('textbox', { name: 'Descrição da avaliação: *' }).fill(newDescription);
         await this.page.getByRole('button', { name: 'Salvar Alterações' }).click();
     }
