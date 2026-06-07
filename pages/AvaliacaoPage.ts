@@ -16,7 +16,8 @@ export class AvaliacaoPage {
     async createAvaliacao(avaliacaoDescription: string, professorName: string, disciplinaName: string) {
         await this.page.getByRole('button', {name: 'Criar Avaliação'}).click();
         await this.page.getByRole('textbox', { name: 'Descrição da avaliação: *' }).fill(avaliacaoDescription);
-        await this.page.getByText('Selecionar turmas').first().click();
+        await this.page.getByRole('combobox', { name: 'Turmas' }).click();
+        await this.page.getByRole('option').first().click();
         await this.page.getByRole('button', { name: 'Professor' }).click();
         await this.page.getByRole('option', { name: professorName }).click();
         await this.page.getByRole('combobox', { name: 'Selecionar disciplina para' }).click();
