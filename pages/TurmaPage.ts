@@ -19,7 +19,6 @@ export class TurmaPage {
         await this.page.getByRole('button', {name: 'Salvar'}).click();
     }
 
-    // CRIAR UMA NOVA TURMA
     async createTurma(courseName: string, year: string, series: string, shift: string, description: string) {
         await this.page.getByRole('button', {name: 'Adicionar nova turma'}).click();
 
@@ -33,7 +32,6 @@ export class TurmaPage {
         await this.page.getByRole('textbox', { name: /Descrição/ }).fill(description);
     }
 
-    // EDITAR UMA TURMA
     async editTurma(query: string,oldYear: string, newYear: string) {
         await this.searchTurma(query);
         const row = this.page.getByRole('row').filter({ hasText: query });
