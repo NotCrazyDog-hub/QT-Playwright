@@ -33,9 +33,10 @@ export class AvaliacaoPage {
 
     async editAvaliacao(query: string, newDescription: string) {
         await this.searchAvaliacao(query);
-        await this.page.locator('h3').filter({ hasText: query }).waitFor({ state: 'visible' });
-        await expect(this.page.locator('h3').filter({ hasText: query })).toHaveCount(1);
-        const card = this.page.locator('h3').filter({ hasText: query }).locator('xpath=ancestor::*[@data-slot="card-content"]');
+        const title = this.page.locator('h3').filter({ hasText: query });
+        await title.waitFor({ state: 'visible' });
+        await expect(title).toHaveCount(1);
+        const card = title.locator('xpath=ancestor::*[@data-slot="card-content"]');
         await card.getByRole('button', { name: 'Mais Ações' }).click();
         await this.page.getByRole('menuitem', { name: 'Editar' }).click();
         await this.page.getByRole('textbox', { name: 'Descrição da avaliação: *' }).clear();
