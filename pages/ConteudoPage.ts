@@ -16,10 +16,9 @@ export class ConteudoPage {
 
     async searchConteudo(nome: string) {
         await this.page.getByPlaceholder('Pesquisar conteúdo...').fill(nome);
-        await this.page.waitForTimeout(500); // aguarda o debounce da pesquisa
+        await this.page.waitForTimeout(500); 
     }
 
-    // CRIAR UM NOVO CONTEÚDO
     async createConteudo(conteudoName: string) {
         await this.page.getByRole('button', { name: 'Adicionar conteúdo' }).click();
         await this.page.getByRole('textbox', { name: 'Nome do Conteúdo:' }).fill(conteudoName);

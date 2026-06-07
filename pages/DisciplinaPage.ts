@@ -13,7 +13,7 @@ export class DisciplinaPage {
 
     async searchDiscipline(nome: string) {
         await this.page.getByPlaceholder('Pesquisar disciplina...').fill(nome);
-        await this.page.waitForTimeout(500); // aguarda o debounce da pesquisa
+        await this.page.waitForTimeout(500); 
 }
 
     async createDiscipline(nome: string, area: string) {
